@@ -1,19 +1,24 @@
 package com.san.adesso.pizza_order_manager.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
-public class OrderDTO {
+public class OrderMessage {
+
     private String code;
-    private List<OrderItem> items;
     private OrderStatus status;
-    private LocalDateTime dateTimeCreated;
-    private LocalDateTime dateTimeUpdated;
+    private List<OrderItem> items;
+
+    public OrderMessage(String code, OrderStatus status) {
+        this.code = code;
+        this.status = status;
+    }
 }

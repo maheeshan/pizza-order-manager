@@ -5,11 +5,11 @@ import com.san.adesso.pizza_order_manager.entity.OrderDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface OrderMapper {
 
-    @Mapping(target = "id", ignore = true)
     OrderDTO toOrderDTO(Order order);
 
+    @Mapping(target = "id", ignore = true)
     Order toOrder(OrderDTO orderDTO);
 }
