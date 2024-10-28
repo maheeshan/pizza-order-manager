@@ -5,8 +5,8 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -39,22 +39,12 @@ public class RabbitConfig {
     }
 
     @Bean
-    public Queue orderStatusQueue() {
-        return new Queue(rabbitConfigProperties.getQueueOrderStatus(), false);
+    public DirectExchange orderExchange() {
+        return new DirectExchange(rabbitConfigProperties.getOrderExchange());
     }
 
     @Bean
-    public TopicExchange orderExchange() {
-        return new TopicExchange(rabbitConfigProperties.getOrderExchange());
-    }
-
-    @Bean
-    public Binding orderQueueBinding(Queue orderQueue, TopicExchange orderExchange) {
+    public Binding orderQueueBinding(Queue orderQueue, DirectExchange orderExchange) {
         return BindingBuilder.bind(orderQueue).to(orderExchange).with(rabbitConfigProperties.getRoutingKeyNewOrder());
-    }
-
-    @Bean
-    public Binding orderStatusQueueBinding(Queue orderStatusQueue, TopicExchange orderExchange) {
-        return BindingBuilder.bind(orderStatusQueue).to(orderExchange).with(rabbitConfigProperties.getRoutingKeyStatus());
     }
 }

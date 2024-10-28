@@ -21,8 +21,8 @@ public class Order {
     private String code;
     @ElementCollection
     @CollectionTable(
-            name="ORDER_ITEM",
-            joinColumns=@JoinColumn(name="ORDER_ID")
+            name = "ORDER_ITEM",
+            joinColumns = @JoinColumn(name = "ORDER_ID")
     )
     private List<OrderItem> items;
     private OrderStatus status;

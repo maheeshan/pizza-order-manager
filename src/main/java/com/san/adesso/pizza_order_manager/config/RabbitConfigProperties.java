@@ -17,7 +17,5 @@ public class RabbitConfigProperties {
 
     private String orderExchange;
     private String queueOrderNew;
-    private String queueOrderStatus;
     private String routingKeyNewOrder;
-    private String routingKeyStatus;
 }

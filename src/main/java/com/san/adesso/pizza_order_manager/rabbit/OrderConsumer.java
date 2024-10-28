@@ -4,7 +4,6 @@ import com.san.adesso.pizza_order_manager.config.RabbitConfigProperties;
 import com.san.adesso.pizza_order_manager.entity.Order;
 import com.san.adesso.pizza_order_manager.entity.OrderMessage;
 import com.san.adesso.pizza_order_manager.entity.OrderStatus;
-import com.san.adesso.pizza_order_manager.exception.OrderNotFoundException;
 import com.san.adesso.pizza_order_manager.repository.OrderRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -26,13 +25,5 @@ public class OrderConsumer {
         orderEntity.setStatus(OrderStatus.PENDING);
         orderEntity.setItems(orderMessage.getItems());
         orderRepository.save(orderEntity);
-    }
-
-    @RabbitListener(queues = "#{@rabbitConfigProperties.getQueueOrderStatus()}")
-    public void processOrderStatusUpdate(OrderMessage message) {
-        orderRepository.findByCode(message.getCode())
-                .ifPresentOrElse(order -> order.setStatus(message.getStatus()), () -> {
-                    throw new OrderNotFoundException(message.getCode());
-                });
     }
 }

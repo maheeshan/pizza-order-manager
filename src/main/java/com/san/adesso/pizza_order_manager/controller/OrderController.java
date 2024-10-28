@@ -2,7 +2,6 @@ package com.san.adesso.pizza_order_manager.controller;
 
 import com.san.adesso.pizza_order_manager.entity.OrderDTO;
 import com.san.adesso.pizza_order_manager.entity.OrderStatus;
-import com.san.adesso.pizza_order_manager.entity.OrderMessage;
 import com.san.adesso.pizza_order_manager.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,17 +32,21 @@ public class OrderController {
         }
     }
 
-    @PatchMapping("/{orderId}/status")
+    @PatchMapping("/{code}/status")
     public ResponseEntity<String> updateOrderStatus(
-            @PathVariable String code,
+            @PathVariable("code") String code,
             @RequestParam OrderStatus status
     ) {
         try {
-            OrderMessage statusMessage = new OrderMessage(code, status);
-            orderService.sendOrderStatusUpdate(statusMessage);
+            orderService.updateOrderStatus(code, status);
             return ResponseEntity.ok("Order status updated to " + status);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update order status");
         }
+    }
+
+    @GetMapping("{code}/status")
+    public ResponseEntity<OrderStatus> getOrderStatus(@PathVariable("code") String code) {
+        return ResponseEntity.ok(orderService.getOrderStatus(code));
     }
 }

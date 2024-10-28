@@ -1,0 +1,100 @@
+{
+	"info": {
+		"_postman_id": "c1fb7721-79e0-49b2-9bda-6b11f06abcbe",
+		"name": "Pizza Orders API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4617250",
+		"_collection_link": "https://interstellar-sunset-864258.postman.co/workspace/SWISSQUOTE~49a85a0e-17b8-42fa-a7c3-dd2bfa3ef299/collection/4617250-c1fb7721-79e0-49b2-9bda-6b11f06abcbe?action=share&source=collection_link&creator=4617250"
+	},
+	"item": [
+		{
+			"name": "placeOrder",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"items\": [\n        {\n            \"pizzaType\": \"Margherita\",\n            \"quantity\": 2\n        },\n        {\n            \"pizzaType\": \"Pepperoni\",\n            \"quantity\": 1\n        },\n        {\n            \"pizzaType\": \"Veggie\",\n            \"quantity\": 3\n        }\n    ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/place",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"place"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateStatus",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/0001/status",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"0001",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPending",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "getStatus",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080/api/v1/orders",
+			"type": "string"
+		}
+	]
+}
